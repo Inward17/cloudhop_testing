@@ -32,3 +32,11 @@ cd api && .venv/bin/pip install pytest httpx && .venv/bin/python -m pytest
 ## How the frontend finds the API
 
 Set `VITE_API_URL` when building to point at the API. Without it, the frontend uses the same host: port 8000 when running locally on 5173, and the main address (port 80) when Cloudhop runs both on one server.
+
+## Review pipeline smoke test
+
+`GET /healthz` returns only `{"status":"ok"}` for a simple liveness check. The existing root status endpoint is unchanged.
+
+CI runs API tests in memory mode and builds the frontend. The separate Codex request workflow posts `@codex review` for ready collaborator PR heads without executing PR code. It must first be merged into main; the PR introducing the workflow cannot test its automatic trigger. After merge, open a new PR or push a new commit to a ready PR, check the Request Codex review Actions run and its comment, then confirm a Codex response for that head. If bot-authored comments are ignored, use native Codex automatic review settings or a maintainer comment. A request job passing is not a review passing.
+
+Nightly security/code review and labeled issue triage are scheduled in the Codex app at 22:00 Asia/Kolkata. See AGENTS.md for labels and issue acceptance criteria. Auto-merge requires owner-configured protections and approvals; this setup does not enable it.
