@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes</title>
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1>Notes</h1>
+    <p id="status" class="muted">Checking the API…</p>
+  </header>
+  <form id="add">
+    <input id="text" name="text" maxlength="500" placeholder="Write a note" autocomplete="off" required aria-label="Note">
+    <button>Add</button>
+  </form>
+  <p id="error" class="error" role="alert" hidden></p>
+  <ul id="notes"></ul>
+  <footer class="muted">A test app for Cloudhop: a Vite frontend and a FastAPI backend with Postgres. Notes should survive a cloud switch.</footer>
+</main>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
