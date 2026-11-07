@@ -123,3 +123,9 @@ def add_note(note: NoteIn):
 def delete_note(note_id: int):
     if not store.delete(note_id):
         raise HTTPException(404, 'Note not found')
+
+
+@app.get('/healthz')
+def healthz():
+    """Minimal liveness response without host or deployment metadata."""
+    return {'status': 'ok'}

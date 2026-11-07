@@ -20,3 +20,11 @@ def test_bad_notes_are_refused():
     with TestClient(app) as client:
         assert client.post('/api/notes', json={'text': ''}).status_code == 422
         assert client.post('/api/notes', json={'text': 'x' * 501}).status_code == 422
+
+
+def test_healthz_has_only_liveness_status(monkeypatch):
+    monkeypatch.setattr('main.DATABASE_URL', None)
+    with TestClient(app) as client:
+        response = client.get('/healthz')
+        assert response.status_code == 200
+        assert response.json() == {'status': 'ok'}
